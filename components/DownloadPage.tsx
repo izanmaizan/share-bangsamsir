@@ -19,9 +19,9 @@ export default function DownloadPage() {
   const [showInstructions, setShowInstructions] = useState(false);
 
   // URL APK dari backend
-  const APK_URL = "http://103.84.208.182:8016/apk/sherlock-bangsamsir.apk";
-  const DOWNLOAD_PAGE_URL =
-    typeof window !== "undefined" ? window.location.href : "";
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "";
+  const APK_URL = `${BACKEND_URL}/apk/sherlock-bangsamsir.apk`;
+
 
   useEffect(() => {
     setMounted(true);
@@ -164,7 +164,7 @@ export default function DownloadPage() {
                 ) : (
                   <>
                     <Download className="w-5 h-5" />
-                    Unduh APK (~ 50 MB)
+                    Unduh APK
                   </>
                 )}
               </button>
