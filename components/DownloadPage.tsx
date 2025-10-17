@@ -10,34 +10,33 @@ import {
   CheckCircle,
   AlertCircle,
   Leaf,
-  Recycle,
 } from "lucide-react";
 
 export default function DownloadPage() {
   const [mounted, setMounted] = useState(false);
   const [downloading, setDownloading] = useState(false);
-  const [progress, setProgress] = useState(0); // Track progress (0-100)
+  const [progress, setProgress] = useState(0);
   const [showInstructions, setShowInstructions] = useState(false);
 
   // ✅ Use proxy endpoint - backend IP hidden
   const APK_URL = "/api/download";
   
-  const DOWNLOAD_PAGE_URL =
-    typeof window !== "undefined" ? window.location.href : "";
+  // Baru: Base URL untuk QR (supaya relatif, tapi full URL kalau di-scan dari luar)
+  const BASE_URL = typeof window !== "undefined" ? window.location.origin : "";
+  const QR_VALUE = `${BASE_URL}${APK_URL}`; // Langsung ke /api/download untuk auto-download
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   const handleDownload = async () => {
-    if (downloading) return; // Prevent multiple clicks
+    if (downloading) return;
 
     try {
       setDownloading(true);
       setProgress(0);
-      setShowInstructions(false); // Reset instructions
+      setShowInstructions(false);
 
-      // Gunakan XMLHttpRequest untuk track progress
       const xhr = new XMLHttpRequest();
       xhr.open("GET", APK_URL, true);
       xhr.responseType = "blob";
@@ -51,7 +50,6 @@ export default function DownloadPage() {
 
       xhr.addEventListener("load", () => {
         if (xhr.status === 200) {
-          // Buat blob URL dan download
           const blob = new Blob([xhr.response], { type: "application/vnd.android.package-archive" });
           const url = window.URL.createObjectURL(blob);
           const link = document.createElement("a");
@@ -65,7 +63,7 @@ export default function DownloadPage() {
           setTimeout(() => {
             setShowInstructions(true);
             setDownloading(false);
-            setProgress(0); // Reset progress
+            setProgress(0);
           }, 1000);
         } else {
           throw new Error(`Download gagal: ${xhr.status}`);
@@ -90,8 +88,12 @@ export default function DownloadPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-green-50">
-      <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5"></div>
+    <div className="min-h-screen bg-cover bg-center bg-fixed" style={{ backgroundImage: 'url(/rs.png)' }}>
+      {/* Baru: Overlay gelap untuk readability pada background foto */}
+      <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+
+      {/* Baru: Hapus grid.svg karena background foto sudah dominan */}
+      {/* <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5"></div> */}
 
       <div className="absolute top-20 left-10 w-20 h-20 bg-emerald-200 rounded-full blur-3xl opacity-30 animate-pulse"></div>
       <div className="absolute bottom-20 right-10 w-32 h-32 bg-green-300 rounded-full blur-3xl opacity-20 animate-pulse delay-700"></div>
@@ -101,40 +103,39 @@ export default function DownloadPage() {
           <div className="flex items-center justify-center mb-6">
             <div className="relative">
               <div className="absolute inset-0 bg-emerald-400 rounded-full blur-xl opacity-50 animate-pulse"></div>
-              <div className="relative bg-white p-4 rounded-full shadow-2xl">
-                <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-green-600 rounded-full flex items-center justify-center">
-                  <Recycle className="w-10 h-10 text-white" />
-                </div>
+              <div className="relative bg-white bg-opacity-95 p-4 rounded-full shadow-2xl backdrop-blur-sm">
+                {/* Ubah: Ganti Recycle icon dengan img icon.png */}
+                <img src="/icon.png" alt="Logo Sherlock Bangsamsir" className="w-10 h-10" />
               </div>
             </div>
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            <span className="bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg mb-4">
+            <span className="bg-gradient-to-r from-emerald-300 to-green-300 bg-clip-text text-transparent drop-shadow-lg">
               SHERLOCK BANGSAMSIR
             </span>
           </h1>
-          <p className="text-xl text-gray-600 mb-2">
+          <p className="text-xl text-white text-opacity-90 drop-shadow-md mb-2">
             Bank Sampah Digital Smart Green Hospital
           </p>
-          <p className="text-base text-gray-500">
+          <p className="text-base text-white text-opacity-80 drop-shadow-md">
             RSUD Mohammad Natsir Solok
           </p>
 
-          <div className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium">
+          <div className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-white bg-opacity-90 text-emerald-700 rounded-full text-sm font-medium drop-shadow-lg backdrop-blur-sm">
             <CheckCircle className="w-4 h-4" />
             Versi 1.0.0 - Stabil
           </div>
         </header>
 
         <div className="grid md:grid-cols-2 gap-8 mb-12">
-          <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100 animate-slide-in-left">
+          <div className="bg-white bg-opacity-95 rounded-3xl shadow-2xl p-8 border border-white border-opacity-20 animate-slide-in-left backdrop-blur-sm">
             <div className="text-center mb-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Scan QR Code
               </h2>
               <p className="text-gray-600 text-sm">
-                Scan dengan kamera HP Android Anda
+                Scan dengan kamera HP Android untuk download langsung
               </p>
             </div>
 
@@ -143,7 +144,7 @@ export default function DownloadPage() {
                 <div className="absolute -inset-4 bg-gradient-to-r from-emerald-500 to-green-500 rounded-2xl blur opacity-20"></div>
                 <div className="relative bg-white p-6 rounded-2xl shadow-lg">
                   <QRCodeSVG
-                    value={DOWNLOAD_PAGE_URL || APK_URL}
+                    value={QR_VALUE}
                     size={240}
                     level="H"
                     includeMargin={true}
@@ -171,13 +172,13 @@ export default function DownloadPage() {
                 <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-emerald-600 font-bold text-xs">3</span>
                 </div>
-                <p>Tap notifikasi untuk mulai download</p>
+                <p>Browser akan otomatis mulai download APK</p>
               </div>
             </div>
           </div>
 
           <div className="space-y-6 animate-slide-in-right">
-            <div className="bg-gradient-to-br from-emerald-500 to-green-600 rounded-3xl shadow-2xl p-8 text-white">
+            <div className="bg-gradient-to-br from-emerald-500 to-green-600 rounded-3xl shadow-2xl p-8 text-white drop-shadow-2xl">
               <div className="text-center mb-6">
                 <Smartphone className="w-16 h-16 mx-auto mb-4 opacity-90" />
                 <h2 className="text-2xl font-bold mb-2">
@@ -205,7 +206,6 @@ export default function DownloadPage() {
                 )}
               </button>
 
-              {/* Progress Bar */}
               {downloading && (
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs text-emerald-100">
@@ -226,7 +226,7 @@ export default function DownloadPage() {
               </p>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-xl p-6 border border-gray-100">
+            <div className="bg-white bg-opacity-95 rounded-3xl shadow-xl p-6 border border-white border-opacity-20 backdrop-blur-sm">
               <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
                 <Zap className="w-5 h-5 text-emerald-600" />
                 Fitur Aplikasi
@@ -248,7 +248,7 @@ export default function DownloadPage() {
               </div>
             </div>
 
-            <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6">
+            <div className="bg-amber-50 bg-opacity-95 border border-amber-200 rounded-2xl p-6 backdrop-blur-sm">
               <h3 className="text-sm font-bold text-amber-900 mb-3 flex items-center gap-2">
                 <Shield className="w-4 h-4" />
                 Persyaratan Sistem
@@ -264,7 +264,7 @@ export default function DownloadPage() {
         </div>
 
         {showInstructions && (
-          <div className="bg-blue-50 border border-blue-200 rounded-3xl p-8 mb-8 animate-fade-in">
+          <div className="bg-blue-50 bg-opacity-95 border border-blue-200 rounded-3xl p-8 mb-8 animate-fade-in backdrop-blur-sm">
             <div className="flex items-start gap-4 mb-6">
               <AlertCircle className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
               <div>
@@ -278,7 +278,7 @@ export default function DownloadPage() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-4">
-              <div className="bg-white rounded-xl p-4 border border-blue-100">
+              <div className="bg-white bg-opacity-90 rounded-xl p-4 border border-blue-100">
                 <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 font-bold flex items-center justify-center mb-3">
                   1
                 </div>
@@ -290,7 +290,7 @@ export default function DownloadPage() {
                 </p>
               </div>
 
-              <div className="bg-white rounded-xl p-4 border border-blue-100">
+              <div className="bg-white bg-opacity-90 rounded-xl p-4 border border-blue-100">
                 <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 font-bold flex items-center justify-center mb-3">
                   2
                 </div>
@@ -302,7 +302,7 @@ export default function DownloadPage() {
                 </p>
               </div>
 
-              <div className="bg-white rounded-xl p-4 border border-blue-100">
+              <div className="bg-white bg-opacity-90 rounded-xl p-4 border border-blue-100">
                 <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 font-bold flex items-center justify-center mb-3">
                   3
                 </div>
@@ -317,17 +317,17 @@ export default function DownloadPage() {
           </div>
         )}
 
-        <footer className="text-center text-gray-600 text-sm space-y-2">
+        <footer className="text-center text-white text-opacity-90 text-sm space-y-2 drop-shadow-md">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <Leaf className="w-4 h-4 text-emerald-600" />
-            <p className="font-medium text-gray-700">
+            <Leaf className="w-4 h-4 text-emerald-300" />
+            <p className="font-medium text-white text-opacity-90">
               Bersama Wujudkan Rumah Sakit Hijau
             </p>
           </div>
           <p>
             © 2025 RSUD Mohammad Natsir Solok. All rights reserved.
           </p>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-white text-opacity-70">
             Dikembangkan oleh Tim IT SIMRS RSUD Mohammad Natsir
           </p>
         </footer>

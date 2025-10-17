@@ -5,7 +5,7 @@ import { Readable } from "stream";
 export async function GET() {
   try {
     // ✅ Backend URL from environment variable (not exposed to client)
-    const backendUrl = process.env.BACKEND_URL || "http://103.84.208.182:8016";
+    const backendUrl = process.env.BACKEND_URL;
     const apkUrl = `${backendUrl}/apk/sherlock-bangsamsir.apk`;
 
     console.log("🔄 Proxying APK download from backend...");
