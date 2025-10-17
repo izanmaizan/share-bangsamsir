@@ -16,6 +16,7 @@ import {
 export default function DownloadPage() {
   const [mounted, setMounted] = useState(false);
   const [downloading, setDownloading] = useState(false);
+  const [progress, setProgress] = useState(0); // Track progress (0-100)
   const [showInstructions, setShowInstructions] = useState(false);
 
   // ✅ Use proxy endpoint - backend IP hidden
@@ -29,25 +30,58 @@ export default function DownloadPage() {
   }, []);
 
   const handleDownload = async () => {
+    if (downloading) return; // Prevent multiple clicks
+
     try {
       setDownloading(true);
+      setProgress(0);
+      setShowInstructions(false); // Reset instructions
 
-      // ✅ Download via proxy endpoint
-      const link = document.createElement("a");
-      link.href = APK_URL; // ← Ini sekarang /api/download
-      link.download = "SHERLOCK-BANGSAMSIR.apk";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      // Gunakan XMLHttpRequest untuk track progress
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", APK_URL, true);
+      xhr.responseType = "blob";
 
-      setTimeout(() => {
-        setShowInstructions(true);
-        setDownloading(false);
-      }, 1000);
+      xhr.addEventListener("progress", (event) => {
+        if (event.lengthComputable) {
+          const percentComplete = (event.loaded / event.total) * 100;
+          setProgress(Math.round(percentComplete));
+        }
+      });
+
+      xhr.addEventListener("load", () => {
+        if (xhr.status === 200) {
+          // Buat blob URL dan download
+          const blob = new Blob([xhr.response], { type: "application/vnd.android.package-archive" });
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = "SHERLOCK-BANGSAMSIR.apk";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(url);
+
+          setTimeout(() => {
+            setShowInstructions(true);
+            setDownloading(false);
+            setProgress(0); // Reset progress
+          }, 1000);
+        } else {
+          throw new Error(`Download gagal: ${xhr.status}`);
+        }
+      });
+
+      xhr.addEventListener("error", () => {
+        throw new Error("Koneksi error saat download");
+      });
+
+      xhr.send();
     } catch (error) {
       console.error("Download error:", error);
       setDownloading(false);
-      alert("Gagal mengunduh file. Silakan coba lagi.");
+      setProgress(0);
+      alert("Gagal mengunduh file. Cek koneksi atau coba lagi nanti.");
     }
   };
 
@@ -150,14 +184,14 @@ export default function DownloadPage() {
                   Download untuk Android
                 </h2>
                 <p className="text-emerald-100 text-sm">
-                  File APK &bull; Gratis &bull; Aman
+                  File APK • Gratis • Aman
                 </p>
               </div>
 
               <button
                 onClick={handleDownload}
                 disabled={downloading}
-                className="w-full bg-white text-emerald-600 py-4 px-6 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed">
+                className="w-full bg-white text-emerald-600 py-4 px-6 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed mb-4">
                 {downloading ? (
                   <>
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-emerald-600"></div>
@@ -170,6 +204,22 @@ export default function DownloadPage() {
                   </>
                 )}
               </button>
+
+              {/* Progress Bar */}
+              {downloading && (
+                <div className="space-y-2">
+                  <div className="flex justify-between text-xs text-emerald-100">
+                    <span>Proses download</span>
+                    <span>{progress}%</span>
+                  </div>
+                  <progress
+                    value={progress}
+                    max="100"
+                    className="w-full h-2 rounded-full"
+                    style={{ backgroundColor: 'emerald-200' }}
+                  />
+                </div>
+              )}
 
               <p className="text-xs text-emerald-100 text-center mt-4">
                 Dengan mengunduh, Anda menyetujui kebijakan privasi kami
@@ -204,10 +254,10 @@ export default function DownloadPage() {
                 Persyaratan Sistem
               </h3>
               <ul className="space-y-2 text-xs text-amber-800">
-                <li>&bull; Android 7.0 (Nougat) atau lebih baru</li>
-                <li>&bull; Minimal 100 MB ruang penyimpanan</li>
-                <li>&bull; Koneksi internet aktif</li>
-                <li>&bull; Izinkan instalasi dari &quot;Unknown Sources&quot;</li>
+                <li>• Android 7.0 (Nougat) atau lebih baru</li>
+                <li>• Minimal 100 MB ruang penyimpanan</li>
+                <li>• Koneksi internet aktif</li>
+                <li>• Izinkan instalasi dari "Unknown Sources"</li>
               </ul>
             </div>
           </div>
@@ -248,7 +298,7 @@ export default function DownloadPage() {
                   Izinkan Instalasi
                 </h4>
                 <p className="text-sm text-gray-600">
-                  Aktifkan &quot;Install from Unknown Sources&quot; jika diminta
+                  Aktifkan "Install from Unknown Sources" jika diminta
                 </p>
               </div>
 
@@ -257,7 +307,7 @@ export default function DownloadPage() {
                   3
                 </div>
                 <h4 className="font-semibold text-gray-900 mb-2">
-                  Install &amp; Buka
+                  Install & Buka
                 </h4>
                 <p className="text-sm text-gray-600">
                   Tap Install, tunggu selesai, lalu buka aplikasi
@@ -275,7 +325,7 @@ export default function DownloadPage() {
             </p>
           </div>
           <p>
-            &copy; 2025 RSUD Mohammad Natsir Solok. All rights reserved.
+            © 2025 RSUD Mohammad Natsir Solok. All rights reserved.
           </p>
           <p className="text-xs text-gray-500">
             Dikembangkan oleh Tim IT SIMRS RSUD Mohammad Natsir
