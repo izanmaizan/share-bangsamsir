@@ -20,9 +20,9 @@ export default function DownloadPage() {
   // ✅ Use proxy endpoint - backend IP hidden
   const APK_URL = "/api/download";
   
-  // Baru: Base URL untuk QR (supaya relatif, tapi full URL kalau di-scan dari luar)
+  // Base URL untuk QR (full URL ke /api/download untuk auto-download)
   const BASE_URL = typeof window !== "undefined" ? window.location.origin : "";
-  const QR_VALUE = `${BASE_URL}${APK_URL}`; // Langsung ke /api/download untuk auto-download
+  const QR_VALUE = `${BASE_URL}${APK_URL}`; // Langsung ke /api/download
 
   useEffect(() => {
     setMounted(true);
@@ -87,8 +87,8 @@ export default function DownloadPage() {
   }
 
   return (
-    <div className="min-h-screen bg-cover bg-center bg-fixed" style={{ backgroundImage: 'url(/rs.png)' }}>
-      {/* Baru: Overlay gelap untuk readability pada background foto */}
+    <div className="min-h-screen bg-cover bg-center bg-no-repeat md:bg-fixed" style={{ backgroundImage: 'url(/rs.png)' }}>
+      {/* Overlay gelap untuk readability pada background foto */}
       <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
       <div className="absolute top-20 left-10 w-20 h-20 bg-emerald-200 rounded-full blur-3xl opacity-30 animate-pulse"></div>
@@ -100,11 +100,10 @@ export default function DownloadPage() {
             <div className="relative">
               <div className="absolute inset-0 bg-emerald-400 rounded-full blur-xl opacity-50 animate-pulse"></div>
               <div className="relative bg-white bg-opacity-95 p-6 rounded-full shadow-2xl backdrop-blur-sm flex items-center justify-center">
-                {/* Ubah: Enlarge logo ke w-16 h-16, tambah padding container untuk kurangi white space efek */}
                 <img 
                   src="/icon.png" 
                   alt="Logo Sherlock Bangsamsir" 
-                  className="w-16 h-16 object-contain"  // object-contain biar gak crop, dan fit ukuran
+                  className="w-16 h-16 object-contain" 
                 />
               </div>
             </div>
@@ -200,7 +199,6 @@ export default function DownloadPage() {
                   </>
                 ) : (
                   <>
-                    {/* Ubah: Ganti ikon Download dengan logo icon.png untuk konsistensi */}
                     <img 
                       src="/icon.png" 
                       alt="Download Icon" 
@@ -339,4 +337,4 @@ export default function DownloadPage() {
       </div>
     </div>
   );
-} 
+}
