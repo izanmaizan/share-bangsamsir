@@ -1,5 +1,6 @@
 // app/api/download/route.ts
 import { NextResponse } from "next/server";
+import { Readable } from "stream";
 
 export async function GET() {
   try {
@@ -9,7 +10,7 @@ export async function GET() {
 
     console.log("🔄 Proxying APK download from backend...");
 
-    // Fetch file from backend
+    // Fetch dari backend sebagai stream
     const response = await fetch(apkUrl, {
       headers: {
         "User-Agent": "Vercel-Proxy/1.0",
@@ -21,21 +22,22 @@ export async function GET() {
       throw new Error("Failed to fetch APK from backend");
     }
 
-    // Get file as buffer
-    const arrayBuffer = await response.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
+    // ✅ Stream response body langsung ke NextResponse
+    const stream = Readable.fromWeb(response.body || []);
+    
+    console.log(`✅ APK streaming started (Content-Length: ${response.headers.get('content-length')} bytes)`);
 
-    console.log(`✅ APK proxied successfully (${buffer.length} bytes)`);
-
-    // Return with proper headers
-    return new NextResponse(buffer, {
+    // Return streamed response dengan headers proper
+    return new NextResponse(stream, {
       status: 200,
       headers: {
         "Content-Type": "application/vnd.android.package-archive",
         "Content-Disposition": 'attachment; filename="SHERLOCK-BANGSAMSIR.apk"',
-        "Content-Length": buffer.length.toString(),
+        "Content-Length": response.headers.get('content-length') || 'unknown',
         "Cache-Control": "public, max-age=3600",
         "Access-Control-Allow-Origin": "*",
+        // Tambah header untuk streaming
+        "Transfer-Encoding": "chunked",
       },
     });
   } catch (error) {
