@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image"; // Baru: Import Image dari next/image untuk optimasi
 import { QRCodeSVG } from "qrcode.react";
 import {
   Smartphone,
@@ -100,10 +101,13 @@ export default function DownloadPage() {
             <div className="relative">
               <div className="absolute inset-0 bg-emerald-400 rounded-full blur-xl opacity-50 animate-pulse"></div>
               <div className="relative bg-white bg-opacity-95 p-6 rounded-full shadow-2xl backdrop-blur-sm flex items-center justify-center">
-                <img 
+                {/* Ubah: Ganti <img> dengan <Image> untuk optimasi */}
+                <Image 
                   src="/icon.png" 
                   alt="Logo Sherlock Bangsamsir" 
-                  className="w-16 h-16 object-contain" 
+                  width={64} // Baru: Tentukan width/height eksplisit untuk Next.js Image
+                  height={64}
+                  className="object-contain" 
                 />
               </div>
             </div>
@@ -199,10 +203,13 @@ export default function DownloadPage() {
                   </>
                 ) : (
                   <>
-                    <img 
+                    {/* Ubah: Ganti <img> dengan <Image> */}
+                    <Image 
                       src="/icon.png" 
                       alt="Download Icon" 
-                      className="w-5 h-5 object-contain" 
+                      width={20}
+                      height={20}
+                      className="object-contain" 
                     />
                     Unduh APK
                   </>
@@ -260,7 +267,7 @@ export default function DownloadPage() {
                 <li>• Android 7.0 (Nougat) atau lebih baru</li>
                 <li>• Minimal 100 MB ruang penyimpanan</li>
                 <li>• Koneksi internet aktif</li>
-                <li>• Izinkan instalasi dari "Unknown Sources"</li>
+                <li>• Izinkan instalasi dari &quot;Unknown Sources&quot;</li> {/* Perbaiki: Escape quotes dengan &quot; */}
               </ul>
             </div>
           </div>
@@ -301,7 +308,7 @@ export default function DownloadPage() {
                   Izinkan Instalasi
                 </h4>
                 <p className="text-sm text-gray-600">
-                  Aktifkan "Install from Unknown Sources" jika diminta
+                  Aktifkan &quot;Install from Unknown Sources&quot; jika diminta {/* Perbaiki: Escape quotes */}
                 </p>
               </div>
 
