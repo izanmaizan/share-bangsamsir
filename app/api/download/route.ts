@@ -5,7 +5,7 @@ import { Readable } from "stream";
 export async function GET() {
   try {
     // ✅ Backend URL from environment variable (not exposed to client)
-    const backendUrl = process.env.BACKEND_URL;
+    const backendUrl = process.env.BACKEND_URL || "http://103.84.208.182:8016";
     const apkUrl = `${backendUrl}/apk/sherlock-bangsamsir.apk`;
 
     console.log("🔄 Proxying APK download from backend...");
@@ -22,8 +22,13 @@ export async function GET() {
       throw new Error("Failed to fetch APK from backend");
     }
 
-    // ✅ Stream response body langsung ke NextResponse
-    const stream = Readable.fromWeb(response.body || []);
+    // ✅ Check body ada sebelum stream
+    if (!response.body) {
+      throw new Error("No response body available");
+    }
+
+    // Stream response body langsung ke NextResponse (tanpa fallback [] yang bikin type error)
+    const stream = Readable.fromWeb(response.body);
     
     console.log(`✅ APK streaming started (Content-Length: ${response.headers.get('content-length')} bytes)`);
 
