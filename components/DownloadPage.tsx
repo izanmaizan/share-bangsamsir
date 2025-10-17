@@ -92,9 +92,6 @@ export default function DownloadPage() {
       {/* Baru: Overlay gelap untuk readability pada background foto */}
       <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
-      {/* Baru: Hapus grid.svg karena background foto sudah dominan */}
-      {/* <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5"></div> */}
-
       <div className="absolute top-20 left-10 w-20 h-20 bg-emerald-200 rounded-full blur-3xl opacity-30 animate-pulse"></div>
       <div className="absolute bottom-20 right-10 w-32 h-32 bg-green-300 rounded-full blur-3xl opacity-20 animate-pulse delay-700"></div>
 
@@ -103,9 +100,13 @@ export default function DownloadPage() {
           <div className="flex items-center justify-center mb-6">
             <div className="relative">
               <div className="absolute inset-0 bg-emerald-400 rounded-full blur-xl opacity-50 animate-pulse"></div>
-              <div className="relative bg-white bg-opacity-95 p-4 rounded-full shadow-2xl backdrop-blur-sm">
-                {/* Ubah: Ganti Recycle icon dengan img icon.png */}
-                <img src="/icon.png" alt="Logo Sherlock Bangsamsir" className="w-10 h-10" />
+              <div className="relative bg-white bg-opacity-95 p-6 rounded-full shadow-2xl backdrop-blur-sm flex items-center justify-center">
+                {/* Ubah: Enlarge logo ke w-16 h-16, tambah padding container untuk kurangi white space efek */}
+                <img 
+                  src="/icon.png" 
+                  alt="Logo Sherlock Bangsamsir" 
+                  className="w-16 h-16 object-contain"  // object-contain biar gak crop, dan fit ukuran
+                />
               </div>
             </div>
           </div>
@@ -328,7 +329,7 @@ export default function DownloadPage() {
             © 2025 RSUD Mohammad Natsir Solok. All rights reserved.
           </p>
           <p className="text-xs text-white text-opacity-70">
-            Dikembangkan oleh Tim IT SIMRS RSUD Mohammad Natsir
+            Dikembangkan oleh Maizan Insani Akbar dari Instalasi SIMRS pada RSUD Mohammad Natsir
           </p>
         </footer>
       </div>
