@@ -1,6 +1,5 @@
 // app/api/download/route.ts
 import { NextResponse } from "next/server";
-import { Readable } from "stream";
 
 export async function GET() {
   try {
@@ -22,27 +21,25 @@ export async function GET() {
       throw new Error("Failed to fetch APK from backend");
     }
 
-    // ✅ Check body ada sebelum stream
+    // ✅ Check body ada sebelum proxy
     if (!response.body) {
       throw new Error("No response body available");
     }
 
-    // Stream response body langsung ke NextResponse (tanpa fallback [] yang bikin type error)
-    const stream = Readable.fromWeb(response.body);
-    
     console.log(`✅ APK streaming started (Content-Length: ${response.headers.get('content-length')} bytes)`);
 
-    // Return streamed response dengan headers proper
-    return new NextResponse(stream, {
+    // Return proxy response langsung dengan body stream (no Node conversion)
+    return new NextResponse(response.body, {
       status: 200,
       headers: {
+        // Copy headers penting dari backend
+        ...Object.fromEntries(response.headers.entries()),
+        // Override untuk attachment & CORS
         "Content-Type": "application/vnd.android.package-archive",
         "Content-Disposition": 'attachment; filename="SHERLOCK-BANGSAMSIR.apk"',
-        "Content-Length": response.headers.get('content-length') || 'unknown',
         "Cache-Control": "public, max-age=3600",
         "Access-Control-Allow-Origin": "*",
-        // Tambah header untuk streaming
-        "Transfer-Encoding": "chunked",
+        // Hapus Transfer-Encoding kalau backend kasih, biar chunked otomatis
       },
     });
   } catch (error) {
