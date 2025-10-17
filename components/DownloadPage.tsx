@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import {
-  Download,
   Smartphone,
   Shield,
   Zap,
@@ -201,7 +200,12 @@ export default function DownloadPage() {
                   </>
                 ) : (
                   <>
-                    <Download className="w-5 h-5" />
+                    {/* Ubah: Ganti ikon Download dengan logo icon.png untuk konsistensi */}
+                    <img 
+                      src="/icon.png" 
+                      alt="Download Icon" 
+                      className="w-5 h-5 object-contain" 
+                    />
                     Unduh APK
                   </>
                 )}
@@ -329,10 +333,10 @@ export default function DownloadPage() {
             © 2025 RSUD Mohammad Natsir Solok. All rights reserved.
           </p>
           <p className="text-xs text-white text-opacity-70">
-            Dikembangkan oleh Maizan Insani Akbar dari Instalasi SIMRS pada RSUD Mohammad Natsir
+            Dikembangkan oleh Maizan Insani Akbar dari SIMRS pada RSUD Mohammad Natsir Solok
           </p>
         </footer>
       </div>
     </div>
   );
-}
+} 

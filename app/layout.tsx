@@ -9,12 +9,12 @@ export const metadata: Metadata = {
   description: "Download aplikasi mobile SHERLOCK BANGSAMSIR - Sistem Bank Sampah Digital Smart Green Hospital RSUD Mohammad Natsir Solok",
   keywords: ["bank sampah", "RSUD Mohammad Natsir", "green hospital", "download apk"],
   icons: [
-    { rel: "icon", url: "/icon.png" },  // Baru: Favicon dari icon.png
+    { rel: "icon", url: "/icon.png" },
   ],
   openGraph: {
     title: "Download SHERLOCK BANGSAMSIR",
     description: "Aplikasi Bank Sampah Digital Smart Green Hospital",
-    images: ["/icon.png"],  // Ubah: Gunakan icon.png untuk OG image
+    images: ["/icon.png"], 
     type: "website",
   },
 };
