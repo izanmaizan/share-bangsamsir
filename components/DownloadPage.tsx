@@ -18,10 +18,11 @@ export default function DownloadPage() {
   const [downloading, setDownloading] = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
 
-  // URL APK dari backend
-  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "";
-  const APK_URL = `${BACKEND_URL}/apk/sherlock-bangsamsir.apk`;
-
+  // ✅ Use proxy endpoint - backend IP hidden
+  const APK_URL = "/api/download";
+  
+  const DOWNLOAD_PAGE_URL =
+    typeof window !== "undefined" ? window.location.href : "";
 
   useEffect(() => {
     setMounted(true);
@@ -31,8 +32,9 @@ export default function DownloadPage() {
     try {
       setDownloading(true);
 
+      // ✅ Download via proxy endpoint
       const link = document.createElement("a");
-      link.href = APK_URL;
+      link.href = APK_URL; // ← Ini sekarang /api/download
       link.download = "SHERLOCK-BANGSAMSIR.apk";
       document.body.appendChild(link);
       link.click();
