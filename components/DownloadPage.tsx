@@ -7,7 +7,6 @@ import {
   Smartphone,
   Shield,
   Zap,
-  ChevronDown,
   CheckCircle,
   AlertCircle,
   Leaf,
@@ -20,7 +19,7 @@ export default function DownloadPage() {
   const [showInstructions, setShowInstructions] = useState(false);
 
   // URL APK dari backend
-  const APK_URL = "/api/download";
+  const APK_URL = "http://103.84.208.182:8016/apk/sherlock-bangsamsir.apk";
   const DOWNLOAD_PAGE_URL =
     typeof window !== "undefined" ? window.location.href : "";
 
@@ -32,7 +31,6 @@ export default function DownloadPage() {
     try {
       setDownloading(true);
 
-      // Create download link
       const link = document.createElement("a");
       link.href = APK_URL;
       link.download = "SHERLOCK-BANGSAMSIR.apk";
@@ -40,7 +38,6 @@ export default function DownloadPage() {
       link.click();
       document.body.removeChild(link);
 
-      // Show instructions after download starts
       setTimeout(() => {
         setShowInstructions(true);
         setDownloading(false);
@@ -53,20 +50,17 @@ export default function DownloadPage() {
   };
 
   if (!mounted) {
-    return null; // Prevent hydration mismatch
+    return null;
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-green-50">
-      {/* Background Pattern */}
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5"></div>
 
-      {/* Floating Elements */}
       <div className="absolute top-20 left-10 w-20 h-20 bg-emerald-200 rounded-full blur-3xl opacity-30 animate-pulse"></div>
       <div className="absolute bottom-20 right-10 w-32 h-32 bg-green-300 rounded-full blur-3xl opacity-20 animate-pulse delay-700"></div>
 
       <div className="relative z-10 container mx-auto px-4 py-12 max-w-6xl">
-        {/* Header */}
         <header className="text-center mb-12 animate-fade-in">
           <div className="flex items-center justify-center mb-6">
             <div className="relative">
@@ -91,16 +85,13 @@ export default function DownloadPage() {
             RSUD Mohammad Natsir Solok
           </p>
 
-          {/* Version Badge */}
           <div className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium">
             <CheckCircle className="w-4 h-4" />
             Versi 1.0.0 - Stabil
           </div>
         </header>
 
-        {/* Main Content */}
         <div className="grid md:grid-cols-2 gap-8 mb-12">
-          {/* Left Column - QR Code */}
           <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100 animate-slide-in-left">
             <div className="text-center mb-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
@@ -122,12 +113,6 @@ export default function DownloadPage() {
                     includeMargin={true}
                     bgColor="#ffffff"
                     fgColor="#059669"
-                    imageSettings={{
-                      src: "/logo.png",
-                      excavate: true,
-                      width: 48,
-                      height: 48,
-                    }}
                   />
                 </div>
               </div>
@@ -155,9 +140,7 @@ export default function DownloadPage() {
             </div>
           </div>
 
-          {/* Right Column - Download Button & Info */}
           <div className="space-y-6 animate-slide-in-right">
-            {/* Download Button */}
             <div className="bg-gradient-to-br from-emerald-500 to-green-600 rounded-3xl shadow-2xl p-8 text-white">
               <div className="text-center mb-6">
                 <Smartphone className="w-16 h-16 mx-auto mb-4 opacity-90" />
@@ -165,7 +148,7 @@ export default function DownloadPage() {
                   Download untuk Android
                 </h2>
                 <p className="text-emerald-100 text-sm">
-                  File APK • Gratis • Aman
+                  File APK &bull; Gratis &bull; Aman
                 </p>
               </div>
 
@@ -191,7 +174,6 @@ export default function DownloadPage() {
               </p>
             </div>
 
-            {/* Features */}
             <div className="bg-white rounded-3xl shadow-xl p-6 border border-gray-100">
               <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
                 <Zap className="w-5 h-5 text-emerald-600" />
@@ -214,23 +196,21 @@ export default function DownloadPage() {
               </div>
             </div>
 
-            {/* System Requirements */}
             <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6">
               <h3 className="text-sm font-bold text-amber-900 mb-3 flex items-center gap-2">
                 <Shield className="w-4 h-4" />
                 Persyaratan Sistem
               </h3>
               <ul className="space-y-2 text-xs text-amber-800">
-                <li>• Android 7.0 (Nougat) atau lebih baru</li>
-                <li>• Minimal 100 MB ruang penyimpanan</li>
-                <li>• Koneksi internet aktif</li>
-                <li>• Izinkan instalasi dari "Unknown Sources"</li>
+                <li>&bull; Android 7.0 (Nougat) atau lebih baru</li>
+                <li>&bull; Minimal 100 MB ruang penyimpanan</li>
+                <li>&bull; Koneksi internet aktif</li>
+                <li>&bull; Izinkan instalasi dari &quot;Unknown Sources&quot;</li>
               </ul>
             </div>
           </div>
         </div>
 
-        {/* Installation Instructions */}
         {showInstructions && (
           <div className="bg-blue-50 border border-blue-200 rounded-3xl p-8 mb-8 animate-fade-in">
             <div className="flex items-start gap-4 mb-6">
@@ -266,7 +246,7 @@ export default function DownloadPage() {
                   Izinkan Instalasi
                 </h4>
                 <p className="text-sm text-gray-600">
-                  Aktifkan "Install from Unknown Sources" jika diminta
+                  Aktifkan &quot;Install from Unknown Sources&quot; jika diminta
                 </p>
               </div>
 
@@ -275,7 +255,7 @@ export default function DownloadPage() {
                   3
                 </div>
                 <h4 className="font-semibold text-gray-900 mb-2">
-                  Install & Buka
+                  Install &amp; Buka
                 </h4>
                 <p className="text-sm text-gray-600">
                   Tap Install, tunggu selesai, lalu buka aplikasi
@@ -285,7 +265,6 @@ export default function DownloadPage() {
           </div>
         )}
 
-        {/* Footer */}
         <footer className="text-center text-gray-600 text-sm space-y-2">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Leaf className="w-4 h-4 text-emerald-600" />
