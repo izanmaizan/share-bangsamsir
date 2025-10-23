@@ -35,16 +35,16 @@ export default function DownloadPage() {
     let fakeProgressInterval: NodeJS.Timeout | null = null;
 
     if (downloading && progress === 0) {
-      // Fake progress: meningkat dari 0% ke 10% dalam 2 detik
+      // Fake progress: meningkat dari 0% ke 13% dalam 4 detik
       let fakeProgress = 0;
       fakeProgressInterval = setInterval(() => {
         fakeProgress += 1;
-        if (fakeProgress <= 12) {
+        if (fakeProgress <= 13) {
           setProgress(fakeProgress);
         } else {
           clearInterval(fakeProgressInterval!);
         }
-      }, 200);
+      }, 400);
     }
 
     return () => {
