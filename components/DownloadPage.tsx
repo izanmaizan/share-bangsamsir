@@ -10,7 +10,7 @@ import {
   CheckCircle,
   AlertCircle,
   Leaf,
-  Globe, // Tambahkan icon Globe untuk tombol web
+  Globe,
 } from "lucide-react";
 
 export default function DownloadPage() {
@@ -96,85 +96,85 @@ export default function DownloadPage() {
       <div className="absolute top-20 left-10 w-20 h-20 bg-emerald-200 rounded-full blur-3xl opacity-30 animate-pulse"></div>
       <div className="absolute bottom-20 right-10 w-32 h-32 bg-green-300 rounded-full blur-3xl opacity-20 animate-pulse delay-700"></div>
 
-      <div className="relative z-10 container mx-auto px-2 sm:px-4 lg:px-8 py-6 sm:py-8 max-w-7xl"> {/* Tambah lg:px-8 untuk desktop, max-w-7xl untuk lebar maks */}
-        <header className="text-center mb-6 sm:mb-8 animate-fade-in"> {/* Responsif mb */}
-          <div className="flex items-center justify-center mb-3 sm:mb-4"> {/* Responsif mb */}
+      <div className="relative z-10 container mx-auto px-2 sm:px-4 lg:px-8 py-6 sm:py-8 max-w-7xl">
+        <header className="text-center mb-6 sm:mb-8 animate-fade-in">
+          <div className="flex items-center justify-center mb-3 sm:mb-4">
             <div className="relative">
               <div className="absolute inset-0 bg-emerald-400 rounded-full blur-xl opacity-50 animate-pulse"></div>
-              <div className="relative bg-white bg-opacity-95 p-3 sm:p-4 md:p-6 rounded-full shadow-2xl backdrop-blur-sm flex items-center justify-center"> {/* Responsif padding */}
+              <div className="relative bg-white bg-opacity-95 p-3 sm:p-4 md:p-6 rounded-full shadow-2xl backdrop-blur-sm flex items-center justify-center">
                 <Image 
                   src="/icon.png" 
                   alt="Logo Sherlock Bangsamsir" 
-                  width={40} // Ukuran mobile
+                  width={40}
                   height={40}
-                  className="object-contain sm:w-12 md:w-16 sm:h-12 md:h-16" // Responsif ukuran
+                  className="object-contain sm:w-12 md:w-16 sm:h-12 md:h-16"
                 />
               </div>
             </div>
           </div>
 
-          <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white drop-shadow-lg mb-1 sm:mb-2"> {/* Responsif font */}
+          <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white drop-shadow-lg mb-1 sm:mb-2">
             <span className="bg-gradient-to-r from-emerald-300 to-green-300 bg-clip-text text-transparent drop-shadow-lg">
               SHERLOCK BANGSAMSIR
             </span>
           </h1>
-          <p className="text-sm sm:text-base md:text-lg text-white drop-shadow-md mb-3 sm:mb-4 px-2 sm:px-0"> {/* Responsif font & px */}
+          <p className="text-sm sm:text-base md:text-lg text-white drop-shadow-md mb-3 sm:mb-4 px-2 sm:px-0">
             Bank Sampah Digital Smart Green Hospital RSUD Mohammad Natsir Solok
           </p>
         </header>
 
         {/* Download Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8 animate-slide-in-left"> {/* Grid 1 kolom mobile, 2 desktop; responsif gap & mb */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8 animate-slide-in-left">
           {/* QR Code Card */}
-          <div className="bg-white bg-opacity-95 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl backdrop-blur-sm"> {/* Responsif padding & radius */}
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-emerald-900 mb-3 sm:mb-4 text-center"> {/* Responsif font & mb */}
+          <div className="bg-white bg-opacity-95 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl backdrop-blur-sm">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-emerald-900 mb-3 sm:mb-4 text-center">
               Scan QR untuk Download
             </h2>
-            <div className="flex justify-center mb-3 sm:mb-4"> {/* Responsif mb */}
-              <div className="p-2 sm:p-3 md:p-4 bg-white rounded-xl shadow-md"> {/* Responsif padding */}
+            <div className="flex justify-center mb-3 sm:mb-4">
+              <div className="p-2 sm:p-3 md:p-4 bg-white rounded-xl shadow-md">
                 <QRCodeSVG
                   value={QR_VALUE}
-                  size={140} // Ukuran mobile
-                  className="w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] md:w-[200px] md:h-[200px]" // Responsif ukuran QR
+                  size={140}
+                  className="w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] md:w-[200px] md:h-[200px]"
                   level="H"
                   includeMargin={false}
                 />
               </div>
             </div>
-            <p className="text-xs sm:text-sm text-emerald-700 text-center break-words"> {/* Responsif font, tambah break-words */}
+            <p className="text-xs sm:text-sm text-emerald-700 text-center break-words">
               Scan dengan kamera ponsel Anda untuk unduh langsung
             </p>
           </div>
 
           {/* Download Button Card */}
-          <div className="bg-white bg-opacity-95 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl backdrop-blur-sm"> {/* Responsif padding & radius */}
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-emerald-900 mb-3 sm:mb-4 text-center"> {/* Responsif font & mb */}
+          <div className="bg-white bg-opacity-95 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl backdrop-blur-sm">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-emerald-900 mb-3 sm:mb-4 text-center">
               Unduh Aplikasi
             </h2>
 
-            {/* Tombol Baru: Buka di Web (di atas tombol download) */}
+            {/* Tombol Baru: Buka di Web */}
             <a
               href="http://103.84.208.182:8016/"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full mb-3 sm:mb-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 sm:py-4 px-4 sm:px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base md:text-lg" // Responsif padding, font, gap; full width mobile
+              className="w-full mb-3 sm:mb-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 sm:py-4 px-4 sm:px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base md:text-lg"
             >
-              <Globe className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" /> {/* Responsif icon */}
+              <Globe className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
               Buka di Web
             </a>
 
-            {/* Tombol Download (tetap di bawah) */}
+            {/* Tombol Download */}
             <button
               onClick={handleDownload}
               disabled={downloading}
-              className="w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-bold py-3 sm:py-4 px-4 sm:px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base md:text-lg disabled:opacity-70 disabled:cursor-not-allowed" // Responsif padding, font, gap; full width mobile
+              className="w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-bold py-3 sm:py-4 px-4 sm:px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base md:text-lg disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              <Smartphone className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" /> {/* Responsif icon */}
+              <Smartphone className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
               {downloading ? `Downloading... ${progress}%` : "Download APK"}
             </button>
 
             {downloading && (
-              <div className="mt-3 sm:mt-4 h-1.5 sm:h-2 bg-emerald-100 rounded-full overflow-hidden"> {/* Responsif mt & height */}
+              <div className="mt-3 sm:mt-4 h-1.5 sm:h-2 bg-emerald-100 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-emerald-500 transition-all duration-300"
                   style={{ width: `${progress}%` }}
@@ -182,25 +182,25 @@ export default function DownloadPage() {
               </div>
             )}
 
-            <p className="text-xs sm:text-sm text-emerald-700 mt-3 sm:mt-4 text-center break-words"> {/* Responsif font & mt */}
-              Versi 1.0.0 | Ukuran ~100MB
+            <p className="text-xs sm:text-sm text-emerald-700 mt-3 sm:mt-4 text-center break-words">
+              Versi 1.0.0 | Ukuran ~25MB
             </p>
           </div>
         </div>
 
         {/* Fitur Section */}
-        <div className="bg-white bg-opacity-95 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 mb-6 sm:mb-8 shadow-2xl backdrop-blur-sm animate-slide-in-right"> {/* Responsif padding, radius, mb */}
-          <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-emerald-900 mb-3 sm:mb-4 md:mb-6 text-center"> {/* Responsif font & mb */}
+        <div className="bg-white bg-opacity-95 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 mb-6 sm:mb-8 shadow-2xl backdrop-blur-sm animate-slide-in-right">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-emerald-900 mb-3 sm:mb-4 md:mb-6 text-center">
             Fitur Unggulan
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6"> {/* Grid responsif: 1 mobile, 2 tablet, 3 desktop */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
             <div className="flex items-start gap-2 sm:gap-3">
-              <Shield className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-emerald-600 flex-shrink-0" /> {/* Responsif icon */}
+              <Shield className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-emerald-600 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-sm sm:text-base md:text-lg text-emerald-900 mb-1"> {/* Responsif font */}
+                <h3 className="font-semibold text-sm sm:text-base md:text-lg text-emerald-900 mb-1">
                   Aman & Terpercaya
                 </h3>
-                <p className="text-xs sm:text-sm text-emerald-700 break-words"> {/* Responsif font */}
+                <p className="text-xs sm:text-sm text-emerald-700 break-words">
                   Sistem keamanan data pasien terintegrasi dengan SIMRS
                 </p>
               </div>
@@ -231,19 +231,19 @@ export default function DownloadPage() {
         </div>
 
         {/* Persyaratan Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8"> {/* Grid responsif */}
-          <div className="bg-white bg-opacity-95 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl backdrop-blur-sm"> {/* Responsif */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8">
+          <div className="bg-white bg-opacity-95 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl backdrop-blur-sm">
             <div className="flex items-start gap-2 sm:gap-3 mb-3 sm:mb-4">
               <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-green-600 flex-shrink-0 mt-1" />
-              <h3 className="text-base sm:text-lg md:text-xl font-bold text-green-900"> {/* Responsif */}
+              <h3 className="text-base sm:text-lg md:text-xl font-bold text-green-900">
                 Persyaratan Sistem
               </h3>
             </div>
-            <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-green-800"> {/* Responsif */}
+            <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-green-800">
               <li>• Android 7.0 (Nougat) atau lebih baru</li>
               <li>• Minimal 100 MB ruang penyimpanan</li>
               <li>• Koneksi internet aktif</li>
-              <li>• Izinkan instalasi dari "Unknown Sources"</li>
+              <li>• Izinkan instalasi dari &quot;Unknown Sources&quot;</li> {/* Escape kutip */}
             </ul>
           </div>
 
@@ -263,27 +263,27 @@ export default function DownloadPage() {
           </div>
         </div>
 
-        {/* Instruksi Instalasi (jika ditampilkan) */}
+        {/* Instruksi Instalasi */}
         {showInstructions && (
-          <div className="bg-blue-50 bg-opacity-95 border border-blue-200 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 mb-6 sm:mb-8 animate-fade-in backdrop-blur-sm"> {/* Responsif */}
+          <div className="bg-blue-50 bg-opacity-95 border border-blue-200 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 mb-6 sm:mb-8 animate-fade-in backdrop-blur-sm">
             <div className="flex items-start gap-2 sm:gap-3 md:gap-4 mb-3 sm:mb-4 md:mb-6">
               <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-blue-600 flex-shrink-0 mt-1" />
               <div>
-                <h3 className="text-base sm:text-lg md:text-xl font-bold text-blue-900 mb-1 sm:mb-2"> {/* Responsif */}
+                <h3 className="text-base sm:text-lg md:text-xl font-bold text-blue-900 mb-1 sm:mb-2">
                   Cara Install APK
                 </h3>
-                <p className="text-blue-700 text-xs sm:text-sm mb-2 sm:mb-3 md:mb-4 break-words"> {/* Responsif */}
+                <p className="text-blue-700 text-xs sm:text-sm mb-2 sm:mb-3 md:mb-4 break-words">
                   Ikuti langkah-langkah berikut untuk menginstall aplikasi:
                 </p>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6"> {/* Grid responsif */}
-              <div className="bg-white bg-opacity-90 rounded-xl p-3 sm:p-4 md:p-5 border border-blue-100"> {/* Responsif padding */}
-                <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-full bg-blue-100 text-blue-600 font-bold flex items-center justify-center mb-2 sm:mb-3"> {/* Responsif ukuran */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+              <div className="bg-white bg-opacity-90 rounded-xl p-3 sm:p-4 md:p-5 border border-blue-100">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-full bg-blue-100 text-blue-600 font-bold flex items-center justify-center mb-2 sm:mb-3">
                   1
                 </div>
-                <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-xs sm:text-sm md:text-base"> {/* Responsif font */}
+                <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-xs sm:text-sm md:text-base">
                   Buka File Manager
                 </h4>
                 <p className="text-xs sm:text-sm text-gray-600 break-words">
@@ -292,14 +292,14 @@ export default function DownloadPage() {
               </div>
 
               <div className="bg-white bg-opacity-90 rounded-xl p-3 sm:p-4 md:p-5 border border-blue-100">
-                <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h--8 rounded-full bg-blue-100 text-blue-600 font-bold flex items-center justify-center mb-2 sm:mb-3">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-full bg-blue-100 text-blue-600 font-bold flex items-center justify-center mb-2 sm:mb-3">
                   2
                 </div>
                 <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-xs sm:text-sm md:text-base">
                   Izinkan Instalasi
                 </h4>
                 <p className="text-xs sm:text-sm text-gray-600 break-words">
-                  Aktifkan "Install from Unknown Sources" jika diminta
+                  Aktifkan &quot;Install from Unknown Sources&quot; jika diminta {/* Escape kutip */}
                 </p>
               </div>
 
@@ -319,14 +319,14 @@ export default function DownloadPage() {
         )}
 
         {/* Footer */}
-        <footer className="text-center text-white text-opacity-90 text-xs sm:text-sm space-y-1 sm:space-y-2 drop-shadow-md px-2 sm:px-4"> {/* Responsif font & px */}
-          <div className="flex items-center justify-center gap-1 sm:gap-2 mb-1 sm:mb-2 md:mb-4"> {/* Responsif gap & mb */}
-            <Leaf className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-300" /> {/* Responsif icon */}
+        <footer className="text-center text-white text-opacity-90 text-xs sm:text-sm space-y-1 sm:space-y-2 drop-shadow-md px-2 sm:px-4">
+          <div className="flex items-center justify-center gap-1 sm:gap-2 mb-1 sm:mb-2 md:mb-4">
+            <Leaf className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-300" />
             <p className="font-medium text-white text-opacity-90 text-xs sm:text-sm">
               Bersama Wujudkan Rumah Sakit Hijau
             </p>
           </div>
-          <p className="text-xs sm:text-sm break-words"> {/* Responsif font */}
+          <p className="text-xs sm:text-sm break-words">
             © 2025 RSUD Mohammad Natsir Solok. All rights reserved.
           </p>
           <p className="text-xs sm:text-sm text-white text-opacity-70 break-words">
