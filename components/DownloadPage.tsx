@@ -44,7 +44,7 @@ export default function DownloadPage() {
         } else {
           clearInterval(fakeProgressInterval!);
         }
-      }, 400);
+      }, 900);
     }
 
     return () => {
