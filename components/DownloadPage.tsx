@@ -18,17 +18,41 @@ export default function DownloadPage() {
   const [downloading, setDownloading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [showInstructions, setShowInstructions] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // ✅ Use proxy endpoint - backend IP hidden
-  const APK_URL = "/api/download";
+  // Use proxy endpoint
+  const APK_URL = "/api/download/apk";
   
-  // Base URL untuk QR (full URL ke /api/download untuk auto-download)
+  // Base URL untuk QR
   const BASE_URL = typeof window !== "undefined" ? window.location.origin : "";
-  const QR_VALUE = `${BASE_URL}${APK_URL}`; // Langsung ke /api/download
+  const QR_VALUE = `${BASE_URL}${APK_URL}`;
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    let fakeProgressInterval: NodeJS.Timeout | null = null;
+
+    if (downloading && progress === 0) {
+      // Fake progress: meningkat dari 0% ke 10% dalam 2 detik
+      let fakeProgress = 0;
+      fakeProgressInterval = setInterval(() => {
+        fakeProgress += 1;
+        if (fakeProgress <= 10) {
+          setProgress(fakeProgress);
+        } else {
+          clearInterval(fakeProgressInterval!);
+        }
+      }, 200);
+    }
+
+    return () => {
+      if (fakeProgressInterval) {
+        clearInterval(fakeProgressInterval);
+      }
+    };
+  }, [downloading]);
 
   const handleDownload = async () => {
     if (downloading) return;
@@ -36,6 +60,7 @@ export default function DownloadPage() {
     try {
       setDownloading(true);
       setProgress(0);
+      setErrorMessage(null);
       setShowInstructions(false);
 
       const xhr = new XMLHttpRequest();
@@ -44,7 +69,7 @@ export default function DownloadPage() {
 
       xhr.addEventListener("progress", (event) => {
         if (event.lengthComputable) {
-          const percentComplete = (event.loaded / event.total) * 100;
+          const percentComplete = Math.max(10, (event.loaded / event.total) * 100);
           setProgress(Math.round(percentComplete));
         }
       });
@@ -67,7 +92,7 @@ export default function DownloadPage() {
             setProgress(0);
           }, 1000);
         } else {
-          throw new Error(`Download gagal: ${xhr.status}`);
+          throw new Error(`Download gagal: Status ${xhr.status}`);
         }
       });
 
@@ -80,8 +105,18 @@ export default function DownloadPage() {
       console.error("Download error:", error);
       setDownloading(false);
       setProgress(0);
-      alert("Gagal mengunduh file. Cek koneksi atau coba lagi nanti.");
+      setErrorMessage(error instanceof Error ? error.message : "Gagal mengunduh file. Cek koneksi atau coba lagi nanti.");
     }
+  };
+
+  // Fallback download menggunakan <a> langsung
+  const handleDirectDownload = () => {
+    const link = document.createElement("a");
+    link.href = APK_URL;
+    link.download = "SHERLOCK-BANGSAMSIR.apk";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   if (!mounted) {
@@ -173,6 +208,22 @@ export default function DownloadPage() {
               {downloading ? `Downloading... ${progress}%` : "Download APK"}
             </button>
 
+            {/* Fallback Download Button */}
+            {errorMessage && (
+              <div className="mt-3 sm:mt-4">
+                <p className="text-xs sm:text-sm text-red-600 text-center break-words mb-2">
+                  {errorMessage}
+                </p>
+                <button
+                  onClick={handleDirectDownload}
+                  className="w-full bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white font-bold py-3 sm:py-4 px-4 sm:px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base md:text-lg"
+                >
+                  <Smartphone className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+                  Coba Download Langsung
+                </button>
+              </div>
+            )}
+
             {downloading && (
               <div className="mt-3 sm:mt-4 h-1.5 sm:h-2 bg-emerald-100 rounded-full overflow-hidden">
                 <div
@@ -243,7 +294,7 @@ export default function DownloadPage() {
               <li>• Android 7.0 (Nougat) atau lebih baru</li>
               <li>• Minimal 100 MB ruang penyimpanan</li>
               <li>• Koneksi internet aktif</li>
-              <li>• Izinkan instalasi dari &quot;Unknown Sources&quot;</li> {/* Escape kutip */}
+              <li>• Izinkan instalasi dari &quot;Unknown Sources&quot;</li>
             </ul>
           </div>
 
@@ -299,7 +350,7 @@ export default function DownloadPage() {
                   Izinkan Instalasi
                 </h4>
                 <p className="text-xs sm:text-sm text-gray-600 break-words">
-                  Aktifkan &quot;Install from Unknown Sources&quot; jika diminta {/* Escape kutip */}
+                  Aktifkan &quot;Install from Unknown Sources&quot; jika diminta
                 </p>
               </div>
 
