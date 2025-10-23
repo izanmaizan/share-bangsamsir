@@ -39,7 +39,7 @@ export default function DownloadPage() {
       let fakeProgress = 0;
       fakeProgressInterval = setInterval(() => {
         fakeProgress += 1;
-        if (fakeProgress <= 10) {
+        if (fakeProgress <= 12) {
           setProgress(fakeProgress);
         } else {
           clearInterval(fakeProgressInterval!);
@@ -234,7 +234,7 @@ export default function DownloadPage() {
             )}
 
             <p className="text-xs sm:text-sm text-emerald-700 mt-3 sm:mt-4 text-center break-words">
-              Versi 1.0.0 | Ukuran ~25MB
+              Versi 1.0.0 | Ukuran ~100MB
             </p>
           </div>
         </div>
