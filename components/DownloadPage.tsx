@@ -183,7 +183,7 @@ export default function DownloadPage() {
             )}
 
             <p className="text-xs sm:text-sm text-emerald-700 mt-3 sm:mt-4 text-center break-words">
-              Versi 1.0.0 | Ukuran ~100MB
+              Versi 1.0.0 | Ukuran ~25MB
             </p>
           </div>
         </div>
