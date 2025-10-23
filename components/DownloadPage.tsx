@@ -306,7 +306,8 @@ export default function DownloadPage() {
               </h3>
             </div>
             <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-amber-800">
-              <li>• Hanya untuk pengguna Android</li>
+              <li>• Untuk pengguna Android dapat mendownload APK diatas</li>
+              <li>• Pengguna iPhone/iOS dapat menggunakan versi Web diatas</li>
               <li>• Update aplikasi secara berkala</li>
               <li>• Hubungi admin jika ada kendala</li>
               <li>• Data dilindungi sesuai regulasi</li>
